@@ -1,7 +1,8 @@
 body {
-  background-color: #4B7399;
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
+  background-color: #ddd;
+  /*background: #39414A url(/images/bg-interior-tile-drk.jpg) repeat-x scroll 50% 0; */
 }
 
 a img {
@@ -19,12 +20,8 @@ a {
 }
 
 #container {
-  width: 75%;
-  margin: 0 auto;
-  background-color: #FFF;
-  padding: 20px 40px;
-  border: solid 1px black;
-  margin-top: 20px;
+margin:0 auto;
+width:1000px;
 }
 
 #flash_notice, #flash_error {
@@ -78,4 +75,212 @@ a {
 #errorExplanation ul li {
   font-size: 12px;
   list-style: disc;
+}
+
+.pretty-table
+{
+  padding: 0;
+  margin: 20px;
+  border-collapse: collapse;
+  border: 1px solid #333;
+  font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+  font-size: 0.9em;
+  color: #000;
+  background: #bcd0e4 url("/images/widget-table-bg.jpg") top left repeat-x;
+  width: 90%;
+}
+
+.pretty-table caption
+{
+  caption-side: bottom;
+  font-size: 0.9em;
+  font-style: italic;
+  text-align: right;
+  padding: 0.5em 0;
+}
+
+.pretty-table th, .pretty-table td
+{
+  border: 1px dotted #666;
+  padding: 0.5em;
+  text-align: left;
+  color: #632a39;
+}
+
+.pretty-table thead th
+{
+  color: #000;
+  background-color: #8fadcc;
+  text-transform: uppercase;
+  font-size: 0.9em;
+  border-bottom: 2px solid #333;
+  border-right: 2px solid #333;
+}
+
+.pretty-table thead th+th
+{
+  color: #fff;
+  background-color: #7d98b3;
+  border-right: 1px dotted #666;
+}
+
+.pretty-table th[scope=row]
+{
+  background-color: #b8cfe5;
+  border-right: 2px solid #333;
+}
+
+.pretty-table tr.odd th, .pretty-table tr.odd td
+{
+  color: #2a4763;
+}
+
+.pretty-table tr:hover th[scope=row], .pretty-table tr:hover td
+{
+  background-color: #632a2a;
+  color: #fff;
+}
+
+.pretty-table tr:hover a {
+  color: white;  
+}
+
+form
+{
+  width: 400px;
+  color: #3E4A49;
+  background-color: #FEF7D6;
+  padding: 20px;
+  border: 2px solid #4899BE;
+  font-family: "Trebuchet MS", Arial, Helvetica, Sans-serif;
+  font-size: 0.8em;
+  margin: 10px;
+}
+
+fieldset
+{
+  padding: 0 20px 20px;
+  margin: 0 0 20px;
+  border: 1px solid #3E4A49;
+}
+
+legend
+{
+  color: #FFFFFF;
+  background-color: #4899BE;
+  font-family: Arial, Helvetica, Sans-serif;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 5px;
+  margin-bottom: 0;
+  width: 9em;
+  border: 1px solid #3E4A49;
+}
+
+label
+{
+  display: block;
+  float: left;
+  clear: left;
+  text-align: right;
+  width: 30%;
+  padding-top: 0.25em;
+  margin: 1em 5px 0 0;
+}
+
+input, select
+{
+  margin: 1em 0 0 0;
+  width: 50%;
+  border: 1px solid #FEF7D6;
+  padding: 2px;
+  background: transparent url("/images/field_bg.gif") no-repeat 0 0;
+  -moz-background-clip:border;
+  -moz-background-inline-policy:continuous;
+  -moz-background-origin:padding;
+}
+
+input:focus, select:focus
+{
+  border: 1px solid #4899BE;
+}
+
+.buttons
+{
+  text-align: right;
+  margin: -15px 0 -5px 0;
+}
+
+input.button
+{
+  width: auto;
+  background: #FFFFFF;
+  border: 2px solid #4899BE;
+}
+
+#sidebars {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+-moz-border-radius-bottomleft:0.5em;
+-moz-border-radius-bottomright:0.5em;
+-moz-border-radius-topleft:0.5em;
+-moz-border-radius-topright:0.5em;
+background:#FAFAFA none repeat scroll 0 0;
+border:1px solid #aaa;
+color:#000000;
+display:inline;
+float:left;
+min-height:500px;
+padding:5px 15px 15px;
+width:250px;
+}
+
+#side-b {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+-moz-border-radius-bottomleft:0.5em;
+-moz-border-radius-bottomright:0.5em;
+-moz-border-radius-topleft:0.5em;
+-moz-border-radius-topright:0.5em;
+background:#FAFAFA none repeat scroll 0 0;
+border:1px solid #AAAAAA;
+color:#222222;
+display:inline;
+float:right;
+min-height:500px;
+overflow:visible;
+padding:5px 15px 15px;
+position:relative;
+width:635px;
+}
+
+#content {
+-moz-background-clip:border;
+-moz-background-inline-policy:continuous;
+-moz-background-origin:padding;
+background:#181C21 url(/images/bg_home_content.gif) repeat-x scroll center top;
+/*background: #CCCCCC none repeat scroll 0 0;*/
+border-bottom:1px solid #000000;
+padding:1em 20px;
+/*min-height:831px;*/
+}
+
+#header {
+  background: #999;
+  height:50px;
+  padding: 0 40px;
+  position: relative;
+}
+
+#footer {
+  background:#0F1923 url(/images/bg_footerGrad.jpg) repeat-x scroll center top;
+  border-bottom:2px solid #000000;
+  margin-bottom:3em;
+  padding:2.5em 40px;
+}
+
+.clearfix {
+  display: block;
 }

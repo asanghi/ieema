@@ -1,16 +1,13 @@
 <% form_for @commodity_price do |f| %>
+  <fieldset>
   <%= f.error_messages %>
-  <p>
-    <%= f.label :commodity %><br />
+    <legend>Commodity Price</legend>
+    <%= f.label :commodity %>
     <%= f.collection_select(:commodity_id, Commodity.all, :id, :name, {:prompt => true}) %>
-  </p>
-  <p>
-    <%= f.label :price_date %><br />
-    <%= f.date_select :price_date, :discard_day => true %>
-  </p>
-  <p>
-    <%= f.label :price %><br />
+    <%= f.label :price_date %>
+    <%= f.text_field :price_date %>
+    <%= f.label :price %>
     <%= f.text_field :price %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+  </fieldset>
+  <div class="buttons"><%= f.submit("Submit",{:class => "button"}) %></div>
 <% end %>

@@ -1,12 +1,14 @@
 <% title "Commodities" %>
 
-<table>
+<% @all_commodities = CommodityPrice.for_year(@for_year).details %>
+
+<table class="pretty-table">
   <thead>
     <tr>
       <th><%= link_to(@prev_year,commodities_path(:year => @prev_year)) %></th>
       <th>Name</th>
       <th>Code</th>
-      <% CommodityPrice.for_year(@for_year).details.each do |cp| %>
+      <% @all_commodities.each do |cp| %>
         <th><%= cp.price_date_formatted %></th>
       <% end %>
       <th><%= link_to(@next_year,commodities_path(:year => @next_year)) %></th>

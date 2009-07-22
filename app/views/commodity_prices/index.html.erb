@@ -1,22 +1,22 @@
 <% title "Commodity Prices" %>
 
-<table>
+<table class="pretty-table">
   <thead>
     <tr>
       <th></th>
       <% @commodities.each do |c| %>
-        <th><%= link_to(c.name,commodity_path(c)) %></th>
+        <th scope="col"><%= link_to(c.name,commodity_path(c)) %></th>
       <% end %>
     </tr>
   </thead>
   <tbody>
     <% @prices.keys.each do |year| %>
       <tr>
-        <th><%= year %></th>
+        <th colspan="<%=@commodities.size+1%>"><%= year %></th>
       </tr>
       <% @prices[year].keys.sort.reverse.each do |month| %>
-        <tr>
-          <th><%= Time::RFC2822_MONTH_NAME[month-1] %></th>
+        <tr class="<%= cycle(:odd, :even) %>">
+          <th scope="row"><%= Time::RFC2822_MONTH_NAME[month-1] %></th>
           <% @commodities.each do |c| %>
             <td><%= @prices[year][month][c].try(:price) %></td>
           <% end %>
