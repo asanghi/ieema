@@ -10,11 +10,11 @@ class Formula < ActiveRecord::Base
   attr_reader :billing_date, :tender_date
 
   def billing_date=(val)
-    @billing_date = Chronic.parse(val).try(:to_date) || raise("Unable to parse billing date #{val}")
+    @billing_date = Date.parse(val) || raise("Unable to parse billing date #{val}")
   end
 
   def tender_date=(val)
-    @tender_date = Chronic.parse(val).try(:to_date) || raise("Unable to parse tender date #{val}")
+    @tender_date = Date.parse(val) || raise("Unable to parse tender date #{val}")
   end
 
   def calculate
