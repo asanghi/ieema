@@ -1,6 +1,6 @@
 class FormulasController < ApplicationController
   def index
-    if params[:id]
+    if params[:id] && !params[:billing_date].blank? && !params[:tender_date].blank?
       @formula = Formula.find(params[:id])
       if @formula
         @formula.billing_date = params[:billing_date].to_date
