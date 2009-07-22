@@ -2,7 +2,7 @@ set :application, "ieema"
 set :repo_name, "ieema"
 set :stage, "production"
 set :deploy_to, "/u/#{application}"
-set :user, "arunagw"
+set :user, "asanghi"
 set :repository, "http://svn.risingsuntech.net/#{repo_name}/"
 set :deploy_via, :remote_cache
 set :rails_env, 'production'
