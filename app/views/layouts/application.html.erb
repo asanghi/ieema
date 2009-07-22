@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title><%= h(yield(:title) || "Untitled") %></title>
+    <%= stylesheet_link_tag 'application' %>
+    <%= yield(:head) %>
+  </head>
+  <body>
+    <div id="container">
+      <%- flash.each do |name, msg| -%>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <%- end -%>
+      
+      <%- if show_title? -%>
+        <h1><%=h yield(:title) %></h1>
+      <%- end -%>
+      
+      <div class="sidebar">
+        <h4><%= link_to("Commodities",commodities_path) %></h4>
+        <ul id="commodities">
+          <%= render :partial => 'commodities/commodity_sidebar', :collection => Commodity.all %>
+        </ul>
+      </div>
+      <div class="sidebar">
+        <h4><%= link_to("Formulas",formulas_path) %></h4>
+        <ul id="categories">
+          <%= render Category.all(:include => :formulas) %>
+        </ul>
+      </div>
+      <div>
+        <h4><%= link_to("Commodity Prices",commodity_prices_path) %></h4>
+      </div>
+      <div>
+        <% form_tag(formulas_path, :method => :get)  do %>
+          Formula : <%= select_tag(:id, option_groups_from_collection_for_select(Category.all,'formulas','name','id', 'name',params[:id])) %>
+          Billing Date : <%= text_field_tag(:billing_date,params[:billing_date]) %>
+          Tender Date : <%= text_field_tag(:tender_date,params[:tender_date]) %>
+          <%= submit_tag("Calculate")  %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </div>
+  </body>
+</html>

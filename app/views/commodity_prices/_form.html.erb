@@ -1,0 +1,16 @@
+<% form_for @commodity_price do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :commodity %><br />
+    <%= f.collection_select(:commodity_id, Commodity.all, :id, :name, {:prompt => true}) %>
+  </p>
+  <p>
+    <%= f.label :price_date %><br />
+    <%= f.date_select :price_date, :discard_day => true %>
+  </p>
+  <p>
+    <%= f.label :price %><br />
+    <%= f.text_field :price %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

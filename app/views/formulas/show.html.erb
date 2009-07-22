@@ -1,0 +1,27 @@
+<% title "Formulas: #{@formula.category.name} : #{@formula.name}" %>
+
+<p>
+  <strong>Category:</strong>
+  <%=h @formula.category.name %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%=h @formula.name %>
+</p>
+
+<p>
+  <strong>Formula: </strong>
+  [<code>(<%= @formula.buffer %> + <%= formula_description(@formula) %>)</code>]
+</p>
+
+<% @formula.formula_components.each do |fc|  %>
+<p>
+  Depends on Commodity <%= fc.commodity.code %> with weigth <%= fc.weight %>
+  (index reference <%= pluralize(fc.base_month_difference,'month') %> before tender date)
+</p>
+<% end %>
+
+<p>
+  <%= link_to "Edit", edit_formula_path(@formula) %> |
+  <%= link_to "View All", formulas_path %>
+</p>

@@ -1,0 +1,9 @@
+one:
+  commodity_id: 1
+  price_date: 2009-07-21
+  price: 1.5
+
+two:
+  commodity_id: 1
+  price_date: 2009-07-21
+  price: 1.5

@@ -1,0 +1,16 @@
+<% title "IEEMA Price Variation Calculator" %>
+
+<% if @result%>
+  <p>
+    <strong>Formula</strong>
+    <%= @formula.name %> under <%= @formula.category.name %> (<code><%= @formula.description %></code>)
+  </p>
+  <p>
+    <strong>Result</strong>
+    <%= @result %>%
+  </p>
+  <p>
+    <strong>Result Details</strong>
+    <code><%= result_descriptive(@formula) %></code>
+  </p>
+<% end %>

@@ -1,0 +1,22 @@
+<% title "Commodity: #{@commodity.name}" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @commodity.name %>
+</p>
+<p>
+  <strong>Code:</strong>
+  <code><%=h @commodity.code %></code>
+</p>
+
+<ul>
+  <% @commodity.commodity_prices.reverse.each do |cp| %>
+    <li><%= link_to(cp.price_date_formatted,edit_commodity_price_path(cp)) %> : <%= cp.price %></li>
+  <% end %>
+<ul>
+
+<p>
+  <%= link_to "Edit", edit_commodity_path(@commodity) %> |
+  <%#= link_to "Destroy", @commodity, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", commodities_path %>
+</p>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  formula_id: 1
+  commodity_id: 1
+  weight: 1
+  base_month_difference: 1
+
+two:
+  formula_id: 1
+  commodity_id: 1
+  weight: 1
+  base_month_difference: 1

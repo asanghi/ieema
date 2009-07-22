@@ -1,0 +1,20 @@
+<% title "Commodity Price" %>
+
+<p>
+  <strong>Commodity:</strong>
+  <%=h @commodity_price.commodity_id %>
+</p>
+<p>
+  <strong>Price Date:</strong>
+  <%=h @commodity_price.price_date %>
+</p>
+<p>
+  <strong>Price:</strong>
+  <%=h @commodity_price.price %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_commodity_price_path(@commodity_price) %> |
+  <%= link_to "Destroy", @commodity_price, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", commodity_prices_path %>
+</p>

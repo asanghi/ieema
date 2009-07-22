@@ -1,0 +1,29 @@
+<% title "Commodity Prices" %>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <% @commodities.each do |c| %>
+        <th><%= link_to(c.name,commodity_path(c)) %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% @prices.keys.each do |year| %>
+      <tr>
+        <th><%= year %></th>
+      </tr>
+      <% @prices[year].keys.sort.reverse.each do |month| %>
+        <tr>
+          <th><%= Time::RFC2822_MONTH_NAME[month-1] %></th>
+          <% @commodities.each do |c| %>
+            <td><%= @prices[year][month][c].try(:price) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "New Commodity Price", new_commodity_price_path %></p>
