@@ -1,16 +1,13 @@
 <% form_for @formula do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :category_id %><br />
+  <fieldset>
+    <legend>Formula Details</legend>
+    <%= f.error_messages %>
+    <%= f.label :category_id %>
     <%= f.text_field :category_id %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
+    <%= f.label :name %>
     <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :buffer %><br />
+    <%= f.label :buffer %>
     <%= f.text_field :buffer %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+  </fieldset>
+  <div class="buttons"><%= f.submit "Submit", :class => "button" %></div>
 <% end %>

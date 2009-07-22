@@ -1,12 +1,11 @@
 <% form_for @commodity do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :name %><br />
+  <fieldset>
+    <legend>Commodity Details</legend>
+    <%= f.error_messages %>
+    <%= f.label :name %>
     <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :code %><br />
+    <%= f.label :code %>
     <%= f.text_field :code %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
+  </fieldset>
+  <div class="buttons"><%= f.submit "Submit", :class => "button" %></div>
 <% end %>
