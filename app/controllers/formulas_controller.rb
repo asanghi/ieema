@@ -6,7 +6,7 @@ class FormulasController < ApplicationController
         @formula.billing_date = params[:billing_date].to_date
         @formula.tender_date = params[:tender_date].to_date
         begin
-        @result = @formula.calculate
+          @result = @formula.calculate
         rescue Exception => e
           flash[:error] = e.to_s
         end
