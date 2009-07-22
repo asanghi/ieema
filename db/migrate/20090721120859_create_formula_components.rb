@@ -4,7 +4,8 @@ class CreateFormulaComponents < ActiveRecord::Migration
       t.integer :formula_id
       t.integer :commodity_id
       t.float :weight
-      t.integer :base_month_difference
+      t.integer :billing_month_difference
+      t.integer :tender_month_difference
 
       t.timestamps
     end

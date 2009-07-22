@@ -4,10 +4,12 @@ one:
   formula_id: 1
   commodity_id: 1
   weight: 1
-  base_month_difference: 1
+  billing_month_difference: 1
+  tender_month_difference: 1
 
 two:
   formula_id: 1
   commodity_id: 1
   weight: 1
-  base_month_difference: 1
+  billing_month_difference: 1
+  tender_month_difference: 1

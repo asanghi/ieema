@@ -36,7 +36,8 @@ ActiveRecord::Schema.define(:version => 20090721125244) do
     t.integer  "formula_id"
     t.integer  "commodity_id"
     t.float    "weight"
-    t.integer  "base_month_difference"
+    t.integer  "billing_month_difference"
+    t.integer  "tender_month_difference"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
