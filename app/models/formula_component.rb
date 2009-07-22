@@ -12,7 +12,7 @@ class FormulaComponent < ActiveRecord::Base
   attr_accessor :billing_date, :tender_date
 
   def billing_date_index
-    commodity.price_for(billing_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for date #{billing_date}")
+    commodity.price_for(billing_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for Billing Date : #{billing_date}")
   end
 
   def effective_tender_date
@@ -20,7 +20,7 @@ class FormulaComponent < ActiveRecord::Base
   end
 
   def tender_date_index
-    commodity.price_for(effective_tender_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for date #{effective_tender_date}")
+    commodity.price_for(effective_tender_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for Tender Date : #{effective_tender_date}")
   end
 
   def weighted_value

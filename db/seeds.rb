@@ -59,7 +59,7 @@ module Spreadsheet
 end
 
 puts "Parsing Index Directory"
-workbook = Spreadsheet::ParseExcel.parse("#{RAILS_ROOT}/db/ieema.xls")
+workbook = Spreadsheet::ParseExcel.parse("#{RAILS_ROOT}/public/ieema.xls")
 puts "Total #{workbook.sheet_count} found"
 workbook.worksheets.each do |ws|
   puts ws.name('latin1')
