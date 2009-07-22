@@ -8,8 +8,12 @@ class CommodityPrice < ActiveRecord::Base
   named_scope :for_year, lambda{|*y|{:conditions => ["year(price_date) = ?",(y[0]||Date.today.year)]}}
   named_scope :details, {:order => 'price_date', :select => 'distinct(price_date)'}
 
+  def price_date_formatted=(val)
+    self.price_date = Date.parse(val)
+  end
+  
   def price_date_formatted
-    price_date.strftime("%b %Y")
+    price_date.to_s(:month_and_year)
   end
   
 end

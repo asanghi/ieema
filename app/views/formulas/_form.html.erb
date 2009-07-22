@@ -3,7 +3,7 @@
     <legend>Formula Details</legend>
     <%= f.error_messages %>
     <%= f.label :category_id %>
-    <%= f.text_field :category_id %>
+    <%= f.collection_select(:category_id,Category.all,'id','name') %>
     <%= f.label :name %>
     <%= f.text_field :name %>
     <%= f.label :buffer %>

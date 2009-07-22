@@ -16,42 +16,46 @@
       <%- flash.each do |name, msg| -%>
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <%- end -%>
-      </div> 
+      </div>
       <div id="content" class="clearfix">
-      <div id="sidebars">    
-        <div class="sidebar">
-          <h4><%= link_to("Commodities",commodities_path) %></h4>
-          <ul class="menu" id="commodities">
-            <%= render :partial => 'commodities/commodity_sidebar', :collection => Commodity.all %>
-          </ul>
+        <div id="sidebars">
+          <div class="sidebar">
+            <h4><%= link_to("Commodities",commodities_path) %></h4>
+            <ul class="menu" id="commodities">
+              <%= render :partial => 'commodities/commodity_sidebar', :collection => Commodity.all %>
+            </ul>
+          </div>
+          <div class="clear"></div>
+          <div class="sidebar">
+            <h4><%= link_to("Formulas",formulas_path) %></h4>
+            <ul class="menu" id="categories">
+              <%= render Category.all(:include => :formulas) %>
+            </ul>
+          </div>
+          <div class="clear"></div>
+          <div>
+            <h4><%= link_to("Commodity Prices",commodity_prices_path) %></h4>
+            <h4><%= link_to("Commodity Prices Excel","/ieema.xls") %></h4>
+          </div>
         </div>
-        <div class="clear"></div>
-        <div class="sidebar">
-          <h4><%= link_to("Formulas",formulas_path) %></h4>
-          <ul class="menu" id="categories">
-            <%= render Category.all(:include => :formulas) %>
-          </ul>
-        </div>
-        <div class="clear"></div>
-        <div>
-          <h4><%= link_to("Commodity Prices",commodity_prices_path) %></h4>
-          <h4><%= link_to("Commodity Prices Excel","/ieema.xls") %></h4>
+        <div id="side-b">
+          <% form_tag(formulas_path, :method => :get) do %>
+            <fieldset>
+              <legend>Formula Calculation</legend>
+              <label for="id">Formula</label>
+              <%= select_tag(:id, option_groups_from_collection_for_select(Category.all,'formulas','name','id', 'name',params[:id].try(:to_i))) %>
+              <label for="billing_date">Billing Month &amp; Date</label><%= text_field_tag(:billing_date,params[:billing_date]) %>
+              <label for="tender_date">Tender Month &amp; Year</label><%= text_field_tag(:tender_date,params[:tender_date]) %>
+            </fieldset>
+            <div class="buttons"><%= submit_tag("Calculate", {:class => "button"})  %></div>
+          <% end %>
+          <%= yield %>
         </div>
       </div>
-      <div id="side-b">
-        <% form_tag(formulas_path, :method => :get) do %>
-          <fieldset>
-            <legend>Formula Calculation</legend>
-            <label for="id">Formula</label>
-            <%= select_tag(:id, option_groups_from_collection_for_select(Category.all,'formulas','name','id', 'name',params[:id].try(:to_i))) %>
-            <label for="billing_date">Billing Month &amp; Date</label><%= text_field_tag(:billing_date,params[:billing_date]) %>
-            <label for="tender_date">Tender Month &amp; Year</label><%= text_field_tag(:tender_date,params[:tender_date]) %>
-          </fieldset>
-          <div class="buttons"><%= submit_tag("Calculate", {:class => "button"})  %></div>
-        <% end %>
-        <%= yield %>
+      <div id="footer">
+        <div id="hosting"><a target="blank" class="rise_logo" href="http://risingsuntech.net"><img src="/images/poweredby.gif" alt="Powered by Rising Sun"/></a></div>
+        <div id="credits">Rising Sun Technologies &copy; Copyright 2009</div>
       </div>
-      </div> 
     </div>
   </body>
 </html>
