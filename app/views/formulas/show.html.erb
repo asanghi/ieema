@@ -17,8 +17,8 @@
 <% @formula.formula_components.each do |fc|  %>
 <p>
   Depends on Commodity <%= fc.commodity.code %> with weigth <%= fc.weight %>
-  (index reference <%= pluralize(fc.tender_month_difference,'month') %> before tender date)
-  (index reference <%= pluralize(fc.billing_month_difference,'month') %> before billing date)
+  (index reference <%= pluralize(fc.tender_month_difference,'month') %> before tender month)
+  (index reference <%= pluralize(fc.billing_month_difference,'month') %> before billing month)
 </p>
 <% end %>
 
