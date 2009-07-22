@@ -17,7 +17,7 @@ class FormulaComponent < ActiveRecord::Base
   end
 
   def billing_date_index
-    commodity.price_for(effective_billing_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for Billing Date : #{effective_billing_date}")
+    commodity.price_for(effective_billing_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for Billing Date : #{effective_billing_date.to_s(:month_and_year)}")
   end
 
   def effective_tender_date
@@ -25,7 +25,7 @@ class FormulaComponent < ActiveRecord::Base
   end
 
   def tender_date_index
-    commodity.price_for(effective_tender_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for Tender Date : #{effective_tender_date}")
+    commodity.price_for(effective_tender_date).last.try(:price) || raise("Unable to find commodity index for #{commodity.name} for Tender Date : #{effective_tender_date.to_s(:month_and_year)}")
   end
 
   def weighted_value
@@ -37,7 +37,7 @@ class FormulaComponent < ActiveRecord::Base
   end
 
   def descriptive_weight
-    "#{weight} * [#{commodity.code}:#{billing_date_index}:#{effective_billing_date}]/[#{commodity.code}0:#{tender_date_index}:#{effective_tender_date}] = #{weighted_value}"
+    "#{weight} * [#{commodity.code}:#{billing_date_index}:#{effective_billing_date.to_s(:month_and_year)}]/[#{commodity.code}0:#{tender_date_index}:#{effective_tender_date.to_s(:month_and_year)}] = #{weighted_value}"
   end
 
   private
