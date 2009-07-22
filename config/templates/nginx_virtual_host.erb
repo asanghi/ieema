@@ -1,0 +1,48 @@
+server {
+  # port to listen on. Can also be set to an IP:PORT
+  listen 80;
+
+  # Set the max size for file uploads to 5Mb
+  client_max_body_size 5M;
+
+  # sets the domain[s] that this vhost server requests for
+  server_name   <%= domains.join ' ' %>;
+
+  # doc root
+  root <%= deploy_to %>/current/public;
+
+  passenger_enabled on;
+
+  # vhost specific logs
+  access_log  <%= deploy_to %>/shared/log/<%= "#{application}" %>.access.log main;
+  error_log   <%= deploy_to %>/shared/log/<%= "#{application}" %>.error.log notice;
+
+  # Add expires header for static content
+  location ~* \.(js|css|jpg|jpeg|gif|png)$ {
+    if (-f $request_filename) {
+      expires 5d;
+      break;
+    }
+  }
+
+  # this rewrites all the requests to the maintenance.html
+  # page if it exists in the doc root. This is for capistrano's
+  # disable web task
+  if (-f $document_root/system/maintenance.html) {
+     rewrite  ^(.*)$  /system/maintenance.html ;
+    break;
+  }
+
+  # Block access to paths containing .svn
+  location ~* ^.*\.svn.*$ {
+    internal;
+  }
+
+
+  error_page   500 502 503 504  /500.html;
+
+  location = /500.html {
+    root <%= deploy_to %>/current/public;
+  }
+
+}
