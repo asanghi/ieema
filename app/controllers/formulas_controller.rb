@@ -3,9 +3,9 @@ class FormulasController < ApplicationController
     if params[:id] && !params[:billing_date].blank? && !params[:tender_date].blank?
       @formula = Formula.find(params[:id])
       if @formula
-        @formula.billing_date = params[:billing_date].to_date
-        @formula.tender_date = params[:tender_date].to_date
         begin
+          @formula.billing_date = params[:billing_date]
+          @formula.tender_date = params[:tender_date]
           @result = @formula.calculate
         rescue Exception => e
           flash[:error] = e.to_s

@@ -18,16 +18,18 @@
       
       <div class="sidebar">
         <h4><%= link_to("Commodities",commodities_path) %></h4>
-        <ul id="commodities">
+        <ul class="menu" id="commodities">
           <%= render :partial => 'commodities/commodity_sidebar', :collection => Commodity.all %>
         </ul>
       </div>
+      <div class="clear"></div>
       <div class="sidebar">
         <h4><%= link_to("Formulas",formulas_path) %></h4>
-        <ul id="categories">
+        <ul class="menu" id="categories">
           <%= render Category.all(:include => :formulas) %>
         </ul>
       </div>
+      <div class="clear"></div>
       <div>
         <h4><%= link_to("Commodity Prices",commodity_prices_path) %></h4>
         <h4><%= link_to("Commodity Prices Excel","/ieema.xls") %></h4>

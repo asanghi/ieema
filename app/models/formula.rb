@@ -7,7 +7,15 @@ class Formula < ActiveRecord::Base
   validates_presence_of :category_id, :name
   validates_numericality_of :buffer, :allow_blank => true
 
-  attr_accessor :billing_date, :tender_date
+  attr_reader :billing_date, :tender_date
+
+  def billing_date=(val)
+    @billing_date = Chronic.parse(val).try(:to_date) || raise("Unable to parse billing date #{val}")
+  end
+
+  def tender_date=(val)
+    @tender_date = Chronic.parse(val).try(:to_date) || raise("Unable to parse tender date #{val}")
+  end
 
   def calculate
     buffer + formula_components.to_a.sum do |fc|
