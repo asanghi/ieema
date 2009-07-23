@@ -45,4 +45,44 @@ class Formula < ActiveRecord::Base
       errors.add(:base,"Total Component Weight + Buffer should be 100.0")
     end
   end
+
+  def self.import!(workbook)
+    Commodity.destroy_all
+    Category.destroy_all
+    category_sheet = workbook.worksheet("Categories")
+    categories = {}
+    category_sheet.each do |r|
+      categories[r.at(0)] = Category.create!(:name => r.at(0))
+    end
+    commodity_sheet = workbook.worksheet("Commodities")
+    commodities = {}
+    row = commodity_sheet.row(0)
+    row.each_slice(2) do |r|
+      commodities[r[1]] = Commodity.create!(:name => r[0], :code => r[1])
+    end
+    formula_sheet = workbook.worksheet("Formulas")
+    formulas = []
+    formula_sheet.each do |r|
+      formula_attributes = {}
+      i = 0
+      r.each_slice(4) do |s|
+        if i == 0
+          formula_attributes[:category] = categories[s[1]]
+          formula_attributes[:name] = s[2]
+          formula_attributes[:buffer] = s[3]
+        else
+          formula_attributes[:formula_components_attributes] ||= []
+          formula_attributes[:formula_components_attributes] << {
+            :commodity => commodities[s[0]],
+            :weight => s[1],
+            :billing_month_difference => s[2],
+            :tender_month_difference => s[3]
+          }
+        end
+        i += 1
+      end
+      formulas << Formula.create!(formula_attributes)
+    end
+    return [commodities.size,formulas.size]
+  end
 end

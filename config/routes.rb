@@ -3,7 +3,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :commodity_prices, :collection => {:new_import => :get, :import => :post}
 
-  map.resources :formulas, :collection => {:calculate => :get}
+  map.resources :formulas, :collection => {:calculate => :get, :data_export => :get,
+                                           :new_import => :get, :import => :post}
 
   map.resources :categories
 

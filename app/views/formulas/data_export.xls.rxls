@@ -1,0 +1,40 @@
+df = Spreadsheet::Format.new(:number_format => 'mmm YYYY')
+category_sheet = workbook.create_worksheet
+category_sheet.name = "Categories"
+Category.all.each_with_index do |c,i|
+  category_sheet[i,0] = c.name
+end
+
+df = Spreadsheet::Format.new(:number_format => 'mmm YYYY')
+commodity_sheet = workbook.create_worksheet
+commodity_sheet.name = "Commodities"
+Commodity.all.each_with_index do |c,i|
+  col_ref = i*2
+  commodity_sheet[0,col_ref] = c.name
+  commodity_sheet[0,col_ref+1] = c.code
+  commodity_sheet[1,0] = "FOR REFERENCE ONLY"
+  c.commodity_prices.each_with_index do |cp,j|
+    commodity_sheet.row(j+2).set_format(col_ref,df)
+    commodity_sheet[j+2,col_ref] = cp.price_date
+    commodity_sheet[j+2,col_ref+1] = cp.price
+  end
+end
+
+formula_sheet = workbook.create_worksheet
+formula_sheet.name = "Formulas"
+Formula.all(:include => :formula_components).each_with_index do |f,i|
+  row = formula_sheet.row(i)
+  formula_sheet[i,0] = "formula"
+  formula_sheet[i,1] = f.category.name
+  formula_sheet[i,2] = f.name
+  formula_sheet[i,3] = f.buffer
+  j = 4
+  f.formula_components.each do |fc|
+    formula_sheet[i,j] = fc.commodity.code
+    formula_sheet[i,j+1] = fc.weight
+    formula_sheet[i,j+2] = fc.billing_month_difference
+    formula_sheet[i,j+3] = fc.tender_month_difference
+    j += 4
+  end
+end
+

@@ -1,5 +1,18 @@
 class FormulasController < ApplicationController
 
+  def import
+    file_param = params[:excel_file]
+    Spreadsheet.client_encoding = 'UTF-8'
+    begin
+      spreadsheet = Spreadsheet.open(file_param.local_path)
+      (commodity_count,formula_count) = Formula.import!(spreadsheet)
+      flash[:notice] = "#{formula_count} formulas imported with #{commodity_count} commodities"
+    rescue Exception => e
+      flash[:error] = "Error uploading Excel file : #{e.to_s}"
+    end
+    redirect_to root_path
+  end
+
   def index
     if params[:id] && !params[:billing_date].blank? && !params[:tender_date].blank?
       @formula = Formula.find(params[:id])

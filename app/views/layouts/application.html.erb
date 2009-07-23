@@ -30,6 +30,8 @@
               <li><%= link_to("New Category", new_category_path) %></li>
               <li><%= link_to("New Commodity", new_commodity_path) %></li>
               <li><%= link_to("Import Commodity Prices", new_import_commodity_prices_path) %></li>
+              <li><%= link_to("Export Formulas", data_export_formulas_path(:format => :xls)) %></li>
+              <li><%= link_to("Import Formulas", new_import_formulas_path) %></li>
             </ul>
           </li>
         </ul>
