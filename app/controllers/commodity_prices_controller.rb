@@ -27,10 +27,13 @@ class CommodityPricesController < ApplicationController
   def import
     file_param = params[:excel_file]
     Spreadsheet.client_encoding = 'UTF-8'
-    spreadsheet = Spreadsheet.open(file_param.local_path)
-    puts "Importing Excel File"
-    (sheet_count,price_count) = CommodityPrice.import!(spreadsheet)
-    flash[:notice] = "#{price_count} prices imported from #{sheet_count} sheets"
+    begin
+      spreadsheet = Spreadsheet.open(file_param.local_path)
+      (sheet_count,price_count) = CommodityPrice.import!(spreadsheet)
+      flash[:notice] = "#{price_count} prices imported from #{sheet_count} sheets"
+    rescue Exception => e
+      flash[:error] = "Error uploading Excel file : #{e.to_s}"
+    end
     redirect_to root_path
   end
   
