@@ -17,8 +17,9 @@ class CommoditiesController < ApplicationController
     line.colour = "##{color}"
     line.width = 1
     line.dot_size = 5
+    line.tooltip = '#val# on #x_label#'
     prices = @commodity.commodity_prices.map{|cp|cp.try(:price)||0}
-    labels = @commodity.commodity_prices.map{|cp|cp.try(:price_date_formatted)}
+    labels = @commodity.commodity_prices.map{|cp|cp.try(:price_date).try(:to_s,:short_month_and_year)}
     line.values = prices
     lines << line
     max = prices.max
@@ -34,9 +35,9 @@ class CommoditiesController < ApplicationController
     y_legend.set_style('{font-size: 20px; color: #770077}')
 
     x_labels = XAxisLabels.new
-    #x_labels.set_vertical()
+    x_labels.set_vertical()
 
-    x_labels.labels = labels.map{|l| XAxisLabel.new(l, '#000000', 10, -90)}
+    x_labels.labels = labels.map{|l| XAxisLabel.new(l, '#000000', 10, -70)}
 
     x = XAxis.new
     x.set_labels(x_labels)
