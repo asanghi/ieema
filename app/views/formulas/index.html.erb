@@ -2,12 +2,11 @@
 
 <% if @result%>
   <p>
-    <strong>Formula</strong>
-    <%= @formula.name %> under <%= @formula.category.name %> (<code><%= @formula.description %></code>)
+    Result: <strong><%= @result %>% </strong>
   </p>
   <p>
-    <strong>Result</strong>
-    <%= @result %>%
+    Formula<strong> <%= @formula.name %> under <%= @formula.category.name %> (<code><%= @formula.description %></code>)</strong>
+   
   </p>
   <p>
     <strong>Result Details</strong>

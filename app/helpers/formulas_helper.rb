@@ -14,7 +14,7 @@ module FormulasHelper
       fc.tender_date = f.tender_date
       fc.descriptive_weight
     end.join(" + <br/>")
-    "<br/>(#{f.buffer} + <br/>#{descriptions})"
+    "<br/>#{f.buffer} + <br/>#{descriptions}"
   end
 
 end
