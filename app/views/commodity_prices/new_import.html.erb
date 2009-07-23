@@ -1,0 +1,8 @@
+<% form_tag(import_commodity_prices_path, :multipart => true) do %>
+  <fieldset>
+    <legend>Import Commodity Excel</legend>
+    <label for="file_import">Import File</label>
+    <%= file_field_tag(:excel_file) %>
+  </fieldset>
+  <div class="buttons"><%= submit_tag("Upload", :class => "button")  %></div>
+<% end %>

@@ -16,5 +16,23 @@ class CommodityPrice < ActiveRecord::Base
   def price_date_formatted
     price_date.try(:to_s,:month_and_year)
   end
+
+  def self.import!(workbook)
+    CommodityPrice.delete_all
+    worksheet_count = 0
+    commodity_prices_count = 0
+    workbook.worksheets.each do |ws|
+      code = ws.row(0).at(0)
+      commodity = Commodity.find_by_code(code)
+      ws.each(1) do |row|
+        date = row.date(0)
+        value = row.at(1).to_f
+        commodity.commodity_prices.create!(:price => value,:price_date => date)
+        commodity_prices_count += 1
+      end
+      worksheet_count += 1
+    end
+    [worksheet_count, commodity_prices_count]
+  end
   
 end

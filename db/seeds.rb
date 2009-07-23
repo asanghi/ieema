@@ -90,21 +90,12 @@ tlt.formulas.create(:name => 'Only LA & Zinc', :buffer => 15,
       :tender_month_difference => 4}])
 
 CommodityPrice.delete_all
+=begin
 require 'spreadsheet'
 
 puts "Parsing Index Directory"
 Spreadsheet.client_encoding = 'UTF-8'
 workbook = Spreadsheet.open("#{RAILS_ROOT}/public/ieema.xls")
 puts "Total #{workbook.worksheets.size} found"
-workbook.worksheets.each do |ws|
-  puts ws.name
-  puts ws.row_count
-  code = ws.row(0).at(0)
-  commodity = Commodity.find_by_code(code)
-  puts commodity.name
-  ws.each(1) do |row|
-    date = row.date(0)
-    value = row.at(1).to_f
-    commodity.commodity_prices.create!(:price => value,:price_date => date)
-  end
-end
+CommodityPrice.import!(workbook)
+=end

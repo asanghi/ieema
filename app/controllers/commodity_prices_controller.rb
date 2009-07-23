@@ -20,6 +20,19 @@ class CommodityPricesController < ApplicationController
   def new
     @commodity_price = CommodityPrice.new
   end
+
+  def new_import
+  end
+
+  def import
+    file_param = params[:excel_file]
+    Spreadsheet.client_encoding = 'UTF-8'
+    spreadsheet = Spreadsheet.open(file_param.local_path)
+    puts "Importing Excel File"
+    (sheet_count,price_count) = CommodityPrice.import!(spreadsheet)
+    flash[:notice] = "#{price_count} prices imported from #{sheet_count} sheets"
+    redirect_to root_path
+  end
   
   def create
     @commodity_price = CommodityPrice.new(params[:commodity_price])
