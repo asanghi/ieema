@@ -1,7 +1,7 @@
 body {
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
-  background-color: #ddd;
+  background: #DDDDDD url(/images/body_bg.gif) repeat-x scroll 0 -71px;
   /*background: #39414A url(/images/bg-interior-tile-drk.jpg) repeat-x scroll 50% 0; */
 }
 
@@ -20,8 +20,8 @@ a {
 }
 
 #container {
-margin:0 auto;
-width:1000px;
+  margin:0 auto;
+  width:1000px;
 }
 
 #flash_notice, #flash_error {
@@ -80,14 +80,13 @@ width:1000px;
 .pretty-table
 {
   padding: 0;
-  margin: 20px;
+  margin: 10px;
   border-collapse: collapse;
   border: 1px solid #333;
   font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
-  font-size: 0.9em;
+  font-size: 0.8em;
   color: #000;
   background: #bcd0e4 url("/images/widget-table-bg.jpg") top left repeat-x;
-  width: 90%;
 }
 
 .pretty-table caption
@@ -142,7 +141,7 @@ width:1000px;
 }
 
 .pretty-table tr:hover a {
-  color: white;  
+  color: white;
 }
 
 form
@@ -218,60 +217,35 @@ input.button
   border: 2px solid #4899BE;
 }
 
-#sidebars {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
--moz-border-radius-bottomleft:0.5em;
--moz-border-radius-bottomright:0.5em;
--moz-border-radius-topleft:0.5em;
--moz-border-radius-topright:0.5em;
-background:#FAFAFA none repeat scroll 0 0;
-border:1px solid #aaa;
-color:#000000;
-display:inline;
-float:left;
-min-height:500px;
-padding:5px 15px 15px;
-width:250px;
-}
-
 #side-b {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
--moz-border-radius-bottomleft:0.5em;
--moz-border-radius-bottomright:0.5em;
--moz-border-radius-topleft:0.5em;
--moz-border-radius-topright:0.5em;
-background:#FAFAFA none repeat scroll 0 0;
-border:1px solid #AAAAAA;
-color:#222222;
-min-height:500px;
-overflow:visible;
-padding:5px 15px 15px;
-position:relative;
-width:635px;
-margin-left: 300px;
+  -moz-background-clip:border;
+  -moz-background-inline-policy:continuous;
+  -moz-background-origin:padding;
+  -moz-border-radius-bottomleft:0.5em;
+  -moz-border-radius-bottomright:0.5em;
+  -moz-border-radius-topleft:0.5em;
+  -moz-border-radius-topright:0.5em;
+  background:#FAFAFA none repeat scroll 0 0;
+  border:1px solid #AAAAAA;
+  color:#222222;
+  overflow:visible;
+  padding:5px 15px 15px;
 }
 
 #content {
--moz-background-clip:border;
--moz-background-inline-policy:continuous;
--moz-background-origin:padding;
-/*background:#181C21 url(/images/bg_home_content.gif) repeat-x scroll center top; */
-background: #eee;
-border-bottom:1px solid #000000;
-padding:1em 20px;
-/*min-height:831px;*/
+  -moz-background-clip:border;
+  -moz-background-inline-policy:continuous;
+  -moz-background-origin:padding;
+  /*background:#181C21 url(/images/bg_home_content.gif) repeat-x scroll center top; */
+  background: #eee;
+  border-bottom:1px solid #000000;
+  padding:1em 20px;
+  margin-top: 41px;
+  /*min-height:831px;*/
 }
 
 #header {
-  background: #999;
-  height:50px;
-  padding: 0 40px;
-  position: relative;
-  border-bottom: 2px solid lightgrey;
+  background: transparent;
 }
 
 #footer {
@@ -315,4 +289,76 @@ padding:1em 20px;
 
 .rise_logo img {
   border: none;
+}
+
+
+ul.topnav {
+  list-style: none;
+  padding: 0 20px;
+  margin: 0;
+  margin-top: 3px;
+  float: left;
+  width: 960px;
+  background: #222;
+  font-size: 0.8em;
+  background: url(/images/topnav_bg.gif) repeat-x;
+}
+ul.topnav li {
+  float: left;
+  margin: 0;
+  padding: 0 15px 0 0;
+  position: relative; /*--Declare X and Y axis base for sub navigation--*/
+}
+ul.topnav li a{
+  padding: 10px 5px;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  float: left;
+}
+ul.topnav li a:hover{
+  background: url(/images/topnav_hover.gif) no-repeat center top;
+}
+ul.topnav li span { /*--Drop down trigger styles--*/
+  width: 17px;
+  height: 35px;
+  float: left;
+  background: url(/images/subnav_btn.gif) no-repeat center top;
+}
+ul.topnav li span.subhover {
+  background-position: center bottom; cursor: pointer;
+} /*--Hover effect for trigger--*/
+ul.topnav li ul.subnav {
+  list-style: none;
+  position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
+  left: 0; top: 35px;
+  background: #333;
+  margin: 0; padding: 0;
+  display: none;
+  float: left;
+  width: 215px;
+  border: 1px solid #111;
+}
+ul.topnav li ul.subnav li{
+  margin: 0; padding: 0;
+  border-top: 1px solid #252525; /*--Create bevel effect--*/
+  border-bottom: 1px solid #444; /*--Create bevel effect--*/
+  clear: both;
+  width: 215px;
+}
+html ul.topnav li ul.subnav li a {
+  float: left;
+  width: 190px;
+  background: #333 url(/images/dropdown_linkbg.gif) no-repeat 10px center;
+  padding-left: 20px;
+}
+
+html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
+  background: #222 url(/images/dropdown_linkbg.gif) no-repeat 10px center;
+}
+
+#title {
+  font-size:xx-large;
+  padding: 20px;
+  color:#BEBEBE;
 }

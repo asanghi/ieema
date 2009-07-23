@@ -2,8 +2,8 @@
   <th scope="row"><%= commodity_counter + 1 %></th>
   <th scope="row"><%= link_to(commodity.name,commodity_path(commodity)) %></th>
   <td><code><%= commodity.code %></code></td>
-  <% @all_commodities.each do |cp| %>
-    <td><%= commodity.commodity_prices.price_for(cp.price_date).last.try(:price) %></td>
+  <% (1..12).each do |cp| %>
+    <td><%= commodity.commodity_prices.price_for(Date.new(@for_year,cp,1)).last.try(:price) %></td>
   <% end %>
   <td></td>
 </tr>

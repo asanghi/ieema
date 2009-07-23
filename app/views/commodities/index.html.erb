@@ -8,8 +8,8 @@
       <th><%= link_to(@prev_year,commodities_path(:year => @prev_year)) %></th>
       <th>Name</th>
       <th>Code</th>
-      <% @all_commodities.each do |cp| %>
-        <th><%= cp.price_date_formatted %></th>
+      <% (1..12).each do |cp| %>
+        <th><%= Date.new(@for_year,cp,1).to_s(:short_month_and_year) %></th>
       <% end %>
       <th><%= link_to(@next_year,commodities_path(:year => @next_year)) %></th>
     </tr>

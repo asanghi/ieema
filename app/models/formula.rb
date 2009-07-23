@@ -17,6 +17,10 @@ class Formula < ActiveRecord::Base
     @tender_date = Date.parse(val) || raise("Unable to parse tender date #{val}")
   end
 
+  def name_full
+    "#{category.name} #{name}"
+  end
+
   def calculate
     buffer + formula_components.to_a.sum do |fc|
       fc.billing_date = billing_date

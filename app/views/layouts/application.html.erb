@@ -5,36 +5,30 @@
     <title><%= h(yield(:title) || "Untitled") %></title>
     <%= stylesheet_link_tag 'application' %>
     <%= yield(:head) %>
+    <%= javascript_include_tag "jquery-1.3.2.min", "application"  %>
   </head>
   <body>
     <div id="container">
       <div id="header">
-        <%- if show_title? -%>
-          <h1><%=h yield(:title) %></h1>
-        <%- end -%>
-      </div>
-      <div id="content" class="clearfix">
-        <div id="sidebars">
-          <div class="sidebar">
-            <h4><%= link_to("Commodities",commodities_path) %></h4>
-            <ul class="menu" id="commodities">
+        <span id="title">IEEMA Price Variation Calculator</span>
+        <ul class="topnav">
+          <li><%= link_to("Home",root_path) %></li>
+          <li>
+            <%= link_to("Commodities",commodities_path) %>
+            <ul class="subnav">
               <%= render :partial => 'commodities/commodity_sidebar', :collection => Commodity.all %>
             </ul>
-          </div>
-          <div class="clear"></div>
-          <div class="sidebar">
-            <h4><%= link_to("Formulas",formulas_path) %></h4>
-            <ul class="menu" id="categories">
-              <%= render Category.all(:include => :formulas) %>
-            </ul>
-          </div>
-          <div class="clear"></div>
-          <div>
-            <h4><%= link_to("Commodity Prices",commodity_prices_path) %></h4>
-            <h4><%= link_to("Commodity Prices Excel","/ieema.xls") %></h4>
-          </div>
-        </div>
+          </li>
+          <%= render Category.all(:include => :formulas) %>
+          <li><%= link_to("Commodity Prices",commodity_prices_path) %></li>
+          <li><%= link_to("Commodity Prices Excel","/ieema.xls") %></li>
+        </ul>
+      </div>
+      <div id="content" class="clearfix">
         <div id="side-b">
+          <%- if show_title? -%>
+            <h2><%=h yield(:title) %></h2>
+          <%- end -%>
           <%- flash.each do |name, msg| -%>
             <%= content_tag :div, msg, :id => "flash_#{name}" %>
           <%- end -%>
@@ -43,7 +37,7 @@
               <legend>Formula Calculation</legend>
               <label for="id">Formula</label>
               <%= select_tag(:id, option_groups_from_collection_for_select(Category.all,'formulas','name','id', 'name',params[:id].try(:to_i))) %>
-              <label for="billing_date">Billing Month &amp; Date</label><%= text_field_tag(:billing_date,params[:billing_date]) %>
+              <label for="billing_date">Billing Month &amp; Year</label><%= text_field_tag(:billing_date,params[:billing_date]) %>
               <label for="tender_date">Tender Month &amp; Year</label><%= text_field_tag(:tender_date,params[:tender_date]) %>
             </fieldset>
             <div class="buttons"><%= submit_tag("Calculate", {:class => "button"})  %></div>
