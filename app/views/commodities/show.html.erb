@@ -1,13 +1,4 @@
-<% title "Commodity: #{@commodity.name}" %>
-
-<p>
-  <strong>Name:</strong>
-  <%=h @commodity.name %>
-</p>
-<p>
-  <strong>Code:</strong>
-  <code><%=h @commodity.code %></code>
-</p>
+<% title "Commodity: #{@commodity.name} (#{@commodity.code})" %>
 
   <script type="text/javascript" src="/javascripts/swfobject.js"></script>
   <%= @graph %>
