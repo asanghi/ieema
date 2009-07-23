@@ -150,30 +150,36 @@ form
   color: #3E4A49;
   background-color: #FEF7D6;
   padding: 20px;
-  border: 2px solid #4899BE;
+  border: 1px solid #CFC8A8;
   font-family: "Trebuchet MS", Arial, Helvetica, Sans-serif;
   font-size: 0.8em;
   margin: 10px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 fieldset
 {
   padding: 0 20px 20px;
   margin: 0 0 20px;
-  border: 1px solid #3E4A49;
+  border: 1px solid #CFC8A8;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 legend
 {
-  color: #FFFFFF;
-  background-color: #4899BE;
+  color: #555;
+  background-color: #CFC8A8;
   font-family: Arial, Helvetica, Sans-serif;
   font-size: 1.3em;
   font-weight: bold;
   padding: 5px;
   margin-bottom: 0;
   width: 9em;
-  border: 1px solid #3E4A49;
+  border: 0px solid #3E4A49;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
 }
 
 label
@@ -214,7 +220,7 @@ input.button
 {
   width: auto;
   background: #FFFFFF;
-  border: 2px solid #4899BE;
+  border: 1px solid #CFC8A8;
 }
 
 #side-b {
@@ -226,7 +232,7 @@ input.button
   -moz-border-radius-topleft:0.5em;
   -moz-border-radius-topright:0.5em;
   background:#FAFAFA none repeat scroll 0 0;
-  border:1px solid #AAAAAA;
+  border:1px solid #ddd;
   color:#222222;
   overflow:visible;
   padding:5px 15px 15px;
@@ -238,8 +244,8 @@ input.button
   -moz-background-origin:padding;
   /*background:#181C21 url(/images/bg_home_content.gif) repeat-x scroll center top; */
   background: #eee;
-  border-bottom:1px solid #000000;
-  padding:1em 20px;
+  border-bottom:1px solid #777;
+  padding:5px;
   margin-top: 41px;
   /*min-height:831px;*/
 }

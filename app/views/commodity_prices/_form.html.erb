@@ -4,7 +4,7 @@
     <legend>Commodity Price</legend>
     <%= f.label :commodity %>
     <%= f.collection_select(:commodity_id, Commodity.all, :id, :name, {:prompt => true}) %>
-    <%= f.label :price_date %>
+    <%= f.label :price_date, "Price Month & Year" %>
     <%= f.text_field :price_date_formatted %>
     <%= f.label :price %>
     <%= f.text_field :price %>

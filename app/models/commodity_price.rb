@@ -13,7 +13,7 @@ class CommodityPrice < ActiveRecord::Base
   end
   
   def price_date_formatted
-    price_date.to_s(:month_and_year)
+    price_date.try(:to_s,:month_and_year)
   end
   
 end
