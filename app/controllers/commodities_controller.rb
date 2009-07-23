@@ -1,4 +1,5 @@
 class CommoditiesController < ApplicationController
+
   def index
     @commodities = Commodity.all(:include => :commodity_prices)
     @for_year = (params[:year] || Date.today.year).to_i

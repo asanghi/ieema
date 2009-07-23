@@ -1,4 +1,5 @@
 class CommodityPricesController < ApplicationController
+
   def index
     @commodity_prices = CommodityPrice.all(:order => 'price_date desc')
     @commodities = Commodity.all(:order => 'code')

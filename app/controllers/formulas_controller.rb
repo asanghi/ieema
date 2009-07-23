@@ -1,4 +1,5 @@
 class FormulasController < ApplicationController
+
   def index
     if params[:id] && !params[:billing_date].blank? && !params[:tender_date].blank?
       @formula = Formula.find(params[:id])
@@ -20,7 +21,7 @@ class FormulasController < ApplicationController
   
   def new
     @formula = Formula.new
-    3.times {@formula.formula_components.build }
+    DEFAULT_BLANK_COMPONENTS.times {@formula.formula_components.build }
   end
   
   def create

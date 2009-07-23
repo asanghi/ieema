@@ -2,3 +2,6 @@ ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(:month_and
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:month_and_year => "%B %Y")
 ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(:short_month_and_year => "%b %Y")
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(:short_month_and_year => "%b %Y")
+DEFAULT_BLANK_COMPONENTS = 3
+ADMIN_USERNAME = "admin"
+ADMIN_PASSWORD = "ieemaadmin"
