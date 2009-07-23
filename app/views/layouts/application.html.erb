@@ -17,11 +17,19 @@
             <%= link_to("Commodities",commodities_path) %>
             <ul class="subnav">
               <%= render :partial => 'commodities/commodity_sidebar', :collection => Commodity.all %>
+              <li><%= link_to("Commodity Prices",commodity_prices_path) %></li>
             </ul>
           </li>
           <%= render Category.all(:include => :formulas) %>
-          <li><%= link_to("Commodity Prices",commodity_prices_path) %></li>
-          <li><%= link_to("New Formula",new_formula_path) %></li>
+          <li>
+            <%= link_to("Admin","#") %>
+            <ul class="subnav">
+              <li><%= link_to("All Formulas", formulas_path) %></li>
+              <li><%= link_to("New Formula", new_formula_path) %></li>
+              <li><%= link_to("All Categories", categories_path) %></li>
+              <li><%= link_to("New Category", new_category_path) %></li>
+            </ul>
+          </li>
         </ul>
       </div>
       <div id="content" class="clearfix">

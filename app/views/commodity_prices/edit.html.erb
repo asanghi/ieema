@@ -4,5 +4,6 @@
 
 <p>
   <%= link_to "Show", @commodity_price %> |
+  <%= link_to("Destroy?", @commodity_price, :confirm => 'Are you sure?', :method => :delete ) %> | 
   <%= link_to "View All", commodity_prices_path %>
 </p>
