@@ -60,7 +60,9 @@ class CommoditiesController < ApplicationController
   
   def show
     @commodity = Commodity.find(params[:id], :include => :commodity_prices)
-    @graph = open_flash_chart_object(900,300,graph_commodity_path(@commodity))
+    unless @commodity.commodity_prices.empty?
+      @graph = open_flash_chart_object(900,300,graph_commodity_path(@commodity))
+    end
   end
   
   def new

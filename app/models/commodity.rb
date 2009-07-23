@@ -7,6 +7,9 @@ class Commodity < ActiveRecord::Base
   validates_presence_of :name, :code
   validates_uniqueness_of :code
 
+  accepts_nested_attributes_for :commodity_prices, :allow_destroy => true,
+    :reject_if => proc { |attrs| attrs['price_date'].blank? || attrs['price'].blank? }
+
   def price_for(date)
     commodity_prices.price_for(date)
   end

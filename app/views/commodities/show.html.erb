@@ -1,9 +1,9 @@
 <% title "Commodity: #{@commodity.name} (#{@commodity.code})" %>
 
-  <script type="text/javascript" src="/javascripts/swfobject.js"></script>
-  <%= @graph %>
+<script type="text/javascript" src="/javascripts/swfobject.js"></script>
+<%= @graph %>
 
-  <ul>
+<ul>
   <% @commodity.commodity_prices.reverse.each do |cp| %>
     <li><%= link_to(cp.price_date.to_s(:short_month_and_year),edit_commodity_price_path(cp)) %> : <%= cp.price %></li>
   <% end %>
@@ -11,6 +11,7 @@
 
 <p>
   <%= link_to "Edit", edit_commodity_path(@commodity) %> |
-  <%#= link_to "Destroy", @commodity, :confirm => 'Are you sure?', :method => :delete %>
+  <%= link_to "Destroy", @commodity, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to("New Commodity Price", new_commodity_price_path) %> |
   <%= link_to "View All", commodities_path %>
 </p>
