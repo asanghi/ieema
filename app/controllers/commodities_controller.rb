@@ -4,6 +4,10 @@ class CommoditiesController < ApplicationController
     @for_year = (params[:year] || Date.today.year).to_i
     @prev_year = @for_year - 1
     @next_year = @for_year + 1
+    respond_to do |format|
+      format.html
+      format.xls
+    end
   end
 
   def graph

@@ -9,7 +9,7 @@ class Formula < ActiveRecord::Base
   validate :total_component_sum
 
   accepts_nested_attributes_for :formula_components, :allow_destroy => true,
-    :reject_if => proc { |attrs| attrs['weight'] == '0' || (attrs['commodity_id'].blank? && attrs['commodity'].blank?) }
+    :reject_if => proc { |attrs| attrs['weight'].blank? || attrs['weight'] == '0' || (attrs['commodity_id'].blank? && attrs['commodity'].blank?) }
 
   attr_reader :billing_date, :tender_date
 
@@ -40,7 +40,7 @@ class Formula < ActiveRecord::Base
 
   def total_component_sum
     fc = formula_components.reject{|x| x.blank? or (x.weight.blank?) or (x.weight == 0) }
-    if fc && (fc.sum(&:weight) + (buffer||0)) != 100.0
+    if !fc.empty? && (fc.sum(&:weight) + (buffer||0)) != 100.0
       errors.add(:base,"Total Component Weight + Buffer should be 100.0")
     end
   end

@@ -27,3 +27,6 @@
 </table>
 
 <p><%= link_to "New Commodity Price", new_commodity_price_path %></p>
+
+<%= link_to("Export to Excel from Database",commodities_path(:format => :xls)) %> |
+<%= link_to("Download","/ieema.xls") %> original excel file used for import

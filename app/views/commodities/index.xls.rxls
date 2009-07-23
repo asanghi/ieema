@@ -1,0 +1,11 @@
+df = Spreadsheet::Format.new(:number_format => 'mmm YYYY')
+@commodities.each do |c|
+  sheet = workbook.create_worksheet
+  sheet.name = c.name
+  sheet[0,0] = c.code
+  c.commodity_prices.each_with_index do |cp,i|
+    sheet[i+1,0] = cp.price_date
+    sheet.row(i+1).set_format(0,df)
+    sheet[i+1,1] = cp.price
+  end
+end

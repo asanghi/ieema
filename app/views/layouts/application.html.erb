@@ -21,7 +21,6 @@
           </li>
           <%= render Category.all(:include => :formulas) %>
           <li><%= link_to("Commodity Prices",commodity_prices_path) %></li>
-          <li><%= link_to("Commodity Prices Excel","/ieema.xls") %></li>
           <li><%= link_to("New Formula",new_formula_path) %></li>
         </ul>
       </div>
