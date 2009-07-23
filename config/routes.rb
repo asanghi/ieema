@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :commodities
+  map.resources :commodities, :member => {:graph => :get}
 
   map.resources :commodity_prices
 

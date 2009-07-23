@@ -9,7 +9,10 @@
   <code><%=h @commodity.code %></code>
 </p>
 
-<ul>
+  <script type="text/javascript" src="/javascripts/swfobject.js"></script>
+  <%= @graph %>
+
+  <ul>
   <% @commodity.commodity_prices.reverse.each do |cp| %>
     <li><%= link_to(cp.price_date_formatted,edit_commodity_price_path(cp)) %> : <%= cp.price %></li>
   <% end %>
