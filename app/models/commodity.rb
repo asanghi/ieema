@@ -2,9 +2,10 @@ class Commodity < ActiveRecord::Base
 
   has_many :formula_components
   has_many :formulas, :through => :formula_components
-  has_many :commodity_prices, :order => 'price_date'
+  has_many :commodity_prices, :order => 'price_date', :dependent => :destroy
 
   validates_presence_of :name, :code
+  validates_uniqueness_of :code
 
   def price_for(date)
     commodity_prices.price_for(date)

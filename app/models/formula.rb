@@ -1,12 +1,13 @@
 class Formula < ActiveRecord::Base
 
   belongs_to :category
-  has_many :formula_components, :include => [:commodity => :commodity_prices]
+  has_many :formula_components, :include => [:commodity => :commodity_prices], :dependent => :destroy
   has_many :commodities, :through => :formula_components
 
   validates_presence_of :category_id, :name
   validates_numericality_of :buffer, :allow_blank => true
   validate :total_component_sum
+  validates_uniqueness_of :name, :scope => :category_id
 
   accepts_nested_attributes_for :formula_components, :allow_destroy => true,
     :reject_if => proc { |attrs| attrs['weight'].blank? || attrs['weight'] == '0' || (attrs['commodity_id'].blank? && attrs['commodity'].blank?) }
