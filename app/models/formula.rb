@@ -39,7 +39,8 @@ class Formula < ActiveRecord::Base
   end
 
   def total_component_sum
-    if formula_components && (formula_components.to_a.sum(&:weight) + buffer) != 100.0
+    fc = formula_components.reject{|x| x.blank? or (x.weight.blank?) or (x.weight == 0) }
+    if fc && (fc.sum(&:weight) + (buffer||0)) != 100.0
       errors.add(:base,"Total Component Weight + Buffer should be 100.0")
     end
   end
