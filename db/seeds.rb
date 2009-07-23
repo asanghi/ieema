@@ -12,35 +12,42 @@ tlt = Category.create(:name => 'TLT')
 
 FormulaComponent.delete_all
 Formula.delete_all
-wals = tlah.formulas.create(:name => 'With Aluminium & Steel', :buffer => 20)
-wals.formula_components.create(:weight => 40, :commodity => aluminium)
-wals.formula_components.create(:weight => 5, :commodity => zinc)
-wals.formula_components.create(:weight => 20, :commodity => light_angle)
-wals.formula_components.create(:weight => 15, :commodity => labour,
+wals = tlah.formulas.create(:name => 'With Aluminium & Steel', :buffer => 20,
+                            :formula_components_attributes => [
+                              {:weight => 40, :commodity => aluminium},
+                              {:weight => 5, :commodity => zinc},
+                              {:weight => 20, :commodity => light_angle},
+                              {:weight => 15, :commodity => labour,
                                :billing_month_difference => 4,
-                               :tender_month_difference => 4)
+                               :tender_month_difference => 4}
+                                ])
 
-oa = tlah.formulas.create(:name => 'Only Aluminium', :buffer => 20)
-oa.formula_components.create(:weight => 65, :commodity => aluminium)
-oa.formula_components.create(:weight => 15, :commodity => labour,
+oa = tlah.formulas.create(:name => 'Only Aluminium', :buffer => 20,
+                          :formula_components_attributes => [
+                            {:weight => 65, :commodity => aluminium},
+                            {:weight => 15, :commodity => labour,
                              :billing_month_difference => 4,
-                             :tender_month_difference => 4)
+                             :tender_month_difference => 4}
+                          ])
 
-os = tlah.formulas.create(:name => 'Only Steel', :buffer => 20)
-os.formula_components.create(:weight => 58, :commodity => light_angle)
-os.formula_components.create(:weight => 7, :commodity => zinc)
-os.formula_components.create(:weight => 15, :commodity => labour,
+os = tlah.formulas.create(:name => 'Only Steel', :buffer => 20,
+                          :formula_components_attributes => [
+                            {:weight => 58, :commodity => light_angle},
+                            {:weight => 7, :commodity => zinc},
+                            {:weight => 15, :commodity => labour,
                              :billing_month_difference => 4,
-                             :tender_month_difference => 4)
+                             :tender_month_difference => 4}
+                         ])
 
-
-wals = tlah.formulas.create(:name => 'With Aluminium & Steel (old)', :buffer => 20)
-wals.formula_components.create(:weight => 40, :commodity => aluminium)
-wals.formula_components.create(:weight => 5, :commodity => zinc)
-wals.formula_components.create(:weight => 20, :commodity => fe)
-wals.formula_components.create(:weight => 15, :commodity => labour,
-                               :billing_month_difference => 4,
-                               :tender_month_difference => 4)
+wals = tlah.formulas.create(:name => 'With Aluminium & Steel (old)', :buffer => 20,
+                          :formula_components_attributes => [
+                            {:weight => 40, :commodity => aluminium},
+                            {:weight => 5, :commodity => zinc},
+                            {:weight => 20, :commodity => fe},
+                            {:weight => 15, :commodity => labour,
+                             :billing_month_difference => 4,
+                             :tender_month_difference => 4}
+                         ])
 
 os = tlah.formulas.create(:name => 'Only Steel (old)', :buffer => 20)
 os.formula_components.create(:weight => 58, :commodity => fe)

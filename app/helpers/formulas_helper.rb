@@ -17,4 +17,14 @@ module FormulasHelper
     "<br/>#{f.buffer} + <br/>#{descriptions}"
   end
 
+  def add_fc_link(name, form)
+    link_to_function name do |page|
+      task = render(:partial => 'formula_component', :locals => { :pf => form, :formula_component => FormulaComponent.new })
+      page << %{
+var new_formula_component_id = "new_" + new Date().getTime();
+$('formula_components').insert({ bottom: "#{ escape_javascript task }".replace(/new_\\d+/g, new_formula_component_id) });
+}
+    end
+  end
+
 end

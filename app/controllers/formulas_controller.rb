@@ -20,6 +20,7 @@ class FormulasController < ApplicationController
   
   def new
     @formula = Formula.new
+    3.times {@formula.formula_components.build }
   end
   
   def create

@@ -5,7 +5,7 @@
 
   <ul>
   <% @commodity.commodity_prices.reverse.each do |cp| %>
-    <li><%= link_to(cp.price_date_formatted,edit_commodity_price_path(cp)) %> : <%= cp.price %></li>
+    <li><%= link_to(cp.price_date.to_s(:short_month_and_year),edit_commodity_price_path(cp)) %> : <%= cp.price %></li>
   <% end %>
 <ul>
 

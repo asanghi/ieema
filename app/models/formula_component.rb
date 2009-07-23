@@ -3,7 +3,7 @@ class FormulaComponent < ActiveRecord::Base
   belongs_to :formula
   belongs_to :commodity
 
-  validates_presence_of :formula_id, :commodity_id, :weight
+  validates_presence_of :commodity_id, :weight
   validates_numericality_of :weight
   validates_numericality_of :billing_month_difference, :allow_blank => true
   validates_numericality_of :tender_month_difference, :allow_blank => true
@@ -43,7 +43,7 @@ class FormulaComponent < ActiveRecord::Base
   private
 
   def setup_defaults
-    self.weight ||= 1.0
+    self.weight ||= 0.0
     self.tender_month_difference ||= 1
     self.billing_month_difference ||= 2
   end
