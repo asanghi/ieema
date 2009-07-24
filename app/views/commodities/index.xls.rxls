@@ -1,11 +1,16 @@
 df = Spreadsheet::Format.new(:number_format => 'mmm YYYY')
-@commodities.each do |c|
-  sheet = workbook.create_worksheet
-  sheet.name = c.name
-  sheet[0,0] = c.code
-  c.commodity_prices.each_with_index do |cp,i|
-    sheet[i+1,0] = cp.price_date
-    sheet.row(i+1).set_format(0,df)
-    sheet[i+1,1] = cp.price
+sheet = workbook.create_worksheet
+sheet.name = "Commodity Prices"
+@commodities.each_with_index do |c,i|
+  sheet[0,i+1] = c.code
+end
+
+rownum = 1
+CommodityPrice.all(:order => 'price_date desc').group_by{|p|p.price_date.to_s(:short_month_and_year)}.each do |p,values|
+  sheet[rownum,0] = p
+  sheet.row(rownum).set_format(0,df)
+  @commodities.each_with_index do |c,i|
+    sheet[rownum,i+1] = values.find{|v|v.commodity == c}.try(:price)
   end
+  rownum += 1
 end

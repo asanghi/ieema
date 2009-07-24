@@ -1,3 +1,5 @@
+
+=begin
 Commodity.delete_all
 aluminium = Commodity.create!(:name => 'Aluminium', :code => "AL")
 zinc = Commodity.create!(:name => 'Zinc', :code => 'Zn')
@@ -90,7 +92,6 @@ tlt.formulas.create(:name => 'Only LA & Zinc', :buffer => 15,
       :tender_month_difference => 4}])
 
 CommodityPrice.delete_all
-=begin
 require 'spreadsheet'
 
 puts "Parsing Index Directory"
@@ -99,3 +100,13 @@ workbook = Spreadsheet.open("#{RAILS_ROOT}/public/ieema.xls")
 puts "Total #{workbook.worksheets.size} found"
 CommodityPrice.import!(workbook)
 =end
+
+require 'spreadsheet'
+
+puts "Parsing Index Directory"
+Spreadsheet.client_encoding = 'UTF-8'
+workbook = Spreadsheet.open("#{RAILS_ROOT}/public/data_export.xls")
+#puts "Total #{workbook.worksheets.size} found"
+#CommodityPrice.import!(workbook)
+(commodity_count,formula_count,prices_count) = Formula.import!(workbook)
+puts "#{formula_count} formulas imported with #{commodity_count} commodities and #{prices_count} prices"

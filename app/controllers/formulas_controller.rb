@@ -5,12 +5,13 @@ class FormulasController < ApplicationController
     Spreadsheet.client_encoding = 'UTF-8'
     begin
       spreadsheet = Spreadsheet.open(file_param.local_path)
-      (commodity_count,formula_count) = Formula.import!(spreadsheet)
-      flash[:notice] = "#{formula_count} formulas imported with #{commodity_count} commodities"
+      (commodity_count,formula_count,prices_count) = Formula.import!(spreadsheet)
+      flash[:notice] = "#{formula_count} formulas imported with #{commodity_count} commodities and #{prices_count} prices"
+      redirect_to root_path
     rescue Exception => e
       flash[:error] = "Error uploading Excel file : #{e.to_s}"
+      redirect_to new_import_formulas_path
     end
-    redirect_to root_path
   end
 
   def index

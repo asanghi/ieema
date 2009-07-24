@@ -5,19 +5,27 @@ Category.all.each_with_index do |c,i|
   category_sheet[i,0] = c.name
 end
 
-df = Spreadsheet::Format.new(:number_format => 'mmm YYYY')
+@commodities = Commodity.all
 commodity_sheet = workbook.create_worksheet
 commodity_sheet.name = "Commodities"
-Commodity.all.each_with_index do |c,i|
-  col_ref = i*2
-  commodity_sheet[0,col_ref] = c.name
-  commodity_sheet[0,col_ref+1] = c.code
-  commodity_sheet[1,0] = "FOR REFERENCE ONLY"
-  c.commodity_prices.each_with_index do |cp,j|
-    commodity_sheet.row(j+2).set_format(col_ref,df)
-    commodity_sheet[j+2,col_ref] = cp.price_date
-    commodity_sheet[j+2,col_ref+1] = cp.price
+@commodities.each_with_index do |c,i|
+  commodity_sheet[i,0] = c.name
+  commodity_sheet[i,1] = c.code
+end
+
+sheet = workbook.create_worksheet
+sheet.name = "Commodity Prices"
+@commodities.each_with_index do |c,i|
+  sheet[0,i+1] = c.code
+end
+rownum = 1
+CommodityPrice.all(:order => 'price_date desc').group_by{|p|p.price_date.to_s(:short_month_and_year)}.each do |p,values|
+  sheet[rownum,0] = p
+  sheet.row(rownum).set_format(0,df)
+  @commodities.each_with_index do |c,i|
+    sheet[rownum,i+1] = values.find{|v|v.commodity == c}.try(:price)
   end
+  rownum += 1
 end
 
 formula_sheet = workbook.create_worksheet

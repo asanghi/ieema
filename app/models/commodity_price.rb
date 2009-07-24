@@ -18,12 +18,12 @@ class CommodityPrice < ActiveRecord::Base
   end
 
   def self.import!(workbook)
-    CommodityPrice.delete_all
     worksheet_count = 0
     commodity_prices_count = 0
     workbook.worksheets.each do |ws|
       code = ws.row(0).at(0)
       commodity = Commodity.find_by_code(code)
+      commodity.commodity_prices.each{|cp|cp.destroy}
       ws.each(1) do |row|
         date = row.date(0)
         value = row.at(1).to_f

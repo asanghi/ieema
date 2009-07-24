@@ -29,9 +29,8 @@
               <li><%= link_to("All Categories", categories_path) %></li>
               <li><%= link_to("New Category", new_category_path) %></li>
               <li><%= link_to("New Commodity", new_commodity_path) %></li>
-              <li><%= link_to("Import Commodity Prices", new_import_commodity_prices_path) %></li>
-              <li><%= link_to("Export Formulas", data_export_formulas_path(:format => :xls)) %></li>
-              <li><%= link_to("Import Formulas", new_import_formulas_path) %></li>
+              <li><%= link_to("Export All Data to Excel", data_export_formulas_path(:format => :xls)) %></li>
+              <li><%= link_to("Import All Data from Excel", new_import_formulas_path) %></li>
             </ul>
           </li>
         </ul>
@@ -43,6 +42,7 @@
           <%- end -%>
           <%- flash.each do |name, msg| -%>
             <%= content_tag :div, msg, :id => "flash_#{name}" %>
+            <% flash.delete(name) %>
           <%- end -%>
           <% form_tag(formulas_path, :method => :get, :id => 'calculator') do %>
             <fieldset>

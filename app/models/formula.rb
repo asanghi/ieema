@@ -56,9 +56,8 @@ class Formula < ActiveRecord::Base
     end
     commodity_sheet = workbook.worksheet("Commodities")
     commodities = {}
-    row = commodity_sheet.row(0)
-    row.each_slice(2) do |r|
-      commodities[r[1]] = Commodity.create!(:name => r[0], :code => r[1])
+    commodity_sheet.each do |r|
+      commodities[r[1]] = Commodity.create!(:name => r[0], :code => r[1].upcase)
     end
     formula_sheet = workbook.worksheet("Formulas")
     formulas = []
@@ -73,7 +72,7 @@ class Formula < ActiveRecord::Base
         else
           formula_attributes[:formula_components_attributes] ||= []
           formula_attributes[:formula_components_attributes] << {
-            :commodity => commodities[s[0]],
+            :commodity => commodities[s[0].upcase],
             :weight => s[1],
             :billing_month_difference => s[2],
             :tender_month_difference => s[3]
@@ -83,6 +82,24 @@ class Formula < ActiveRecord::Base
       end
       formulas << Formula.create!(formula_attributes)
     end
-    return [commodities.size,formulas.size]
+    prices_sheet = workbook.worksheet("Commodity Prices")
+    row = prices_sheet.row(0)
+    commodity_sequence = []
+    row.each_with_index do |r,i|
+      unless i == 0
+        commodity_sequence << commodities[r.upcase]
+      end
+    end
+    p = 0 
+    prices_sheet.each(1) do |prow|
+      price_date = Time.parse(prow[0])
+      commodity_sequence.each_with_index do |c,i|
+        unless prow[i+1].blank?
+          c.commodity_prices.create!(:price_date => price_date, :price => prow[i+1])
+          p += 1
+        end
+      end
+    end
+    return [commodities.size,formulas.size,p]
   end
 end
