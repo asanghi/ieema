@@ -3,11 +3,18 @@
 <script type="text/javascript" src="/javascripts/swfobject.js"></script>
 <%= @graph %>
 
-<ul>
+<ul class="pricelist">
   <% @commodity.commodity_prices.reverse.each do |cp| %>
-    <li><%= link_to(cp.price_date.to_s(:short_month_and_year),edit_commodity_price_path(cp)) %> : <%= cp.price %></li>
+    <li class="<%= cycle(:odd,:even) %>">
+      <div class="dateblock">
+        <%= link_to(cp.price_date.to_s(:short_month_and_year),edit_commodity_price_path(cp)) %>
+      </div>
+      <div class="priceblock">
+        <%= cp.price %>
+      </div>
+    </li>
   <% end %>
-<ul>
+</ul>
 
 <p>
   <%= link_to "Edit", edit_commodity_path(@commodity) %> |
