@@ -2,13 +2,23 @@ set :application, "ieema"
 set :repo_name, "ieema"
 set :stage, "production"
 set :deploy_to, "/u/#{application}"
-set :user, "asanghi"
+set :user, application
 set :repository, "http://svn.risingsuntech.net/#{repo_name}/"
 set :deploy_via, :remote_cache
 set :rails_env, 'production'
+set :db_user, "#{application}_db"
+set :group, "deploy"
+set :scm_username, "deploy"
+set :scm_password, proc { Capistrano::CLI.password_prompt("Subversion Password : ") }
+set :db_passwd, proc { Capistrano::CLI.password_prompt("Production database remote Password : ") }
 
-set :domain, "188.40.34.142"
+set :domain, "sunday"
 set :domains, ["ieema.risingsunapps.com"]
+
+ssh_options[:user] = "ieema"
+ssh_options[:port] = 22001
+ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "ieema@sunday")]
+
 role :app, domain, :primary => true
 role :web, domain
 role :db, domain, :primary => true
@@ -29,9 +39,9 @@ namespace :deploy do
 end
 
 desc "After updating code we need to populate a new database.yml"
-task :after_update_code, :roles => :app do
+task :make_database_yaml, :roles => :app do
   require "yaml"
-  set :production_database_password, proc { Capistrano::CLI.password_prompt("Production database remote Password : ") }
+  #set :production_database_password, proc { Capistrano::CLI.password_prompt("Production database remote Password : ") }
   database_file = YAML::load_file('config/database.yml.tmp')
   # get rid of uneeded configurations
   database_file.delete('test')
@@ -40,18 +50,34 @@ task :after_update_code, :roles => :app do
   # Populate production element
   database_file['production']['adapter'] = "mysql"
   database_file['production']['database'] = "#{application}_production"
-  database_file['production']['username'] = "root"
-  database_file['production']['password'] = "root"
+  database_file['production']['username'] = db_user
+  database_file['production']['password'] = db_passwd
   database_file['production']['socket'] = "/var/run/mysqld/mysqld.sock"
   database_file['production']['encoding'] = "utf8"
-  put YAML::dump(database_file), "#{release_path}/config/database.yml", :mode => 0664
+  put YAML::dump(database_file), "#{shared_path}/config/database.yml", :mode => 0664
 end
 
-after "deploy:setup", "nginx:virtual_host:create"
+desc "After updating conde we need to link config file from shared"
+task :symlink_files, :roles => :app do
+  ['database.yml'].each do |file|
+    run "ln -fs #{shared_path}/config/#{file} #{release_path}/config"
+  end
+end
+
+after "deploy:update_code", "make_database_yaml", "symlink_files"
+after "deploy:setup", "add:folders", "nginx:virtual_host:create"
 #after "deploy:restart"# ,"nginx:virtual_host:enable"#, "nginx:reload"
 
 set :nginx_script_name, "#{application}_host_conf"
-set :nginx_file_path, "/opt/nginx/sites-available/#{nginx_script_name}"
+set :nginx_file_path, "/usr/local/nginx/sites-available/#{nginx_script_name}"
+
+namespace :add do
+  desc "Adding relevant deployment folders"
+  task :folders, :roles => :app do 
+    run "sudo mkdir -p #{shared_path}/config #{shared_path}/index" 
+    run "sudo chown #{user}:#{group} #{deploy_to} -R" 
+  end
+end
 
 namespace :nginx do
   desc "Reload nginx settings"
@@ -80,18 +106,18 @@ namespace :nginx do
 
     desc "Enable a virtual host"
     task :enable, :roles => :web do
-      sudo "ln -fs /opt/nginx/sites-available/#{nginx_script_name} /opt/nginx/sites-enabled/#{nginx_script_name}"
+      sudo "ln -fs /usr/local/nginx/sites-available/#{nginx_script_name} /usr/local/nginx/sites-enabled/#{nginx_script_name}"
     end
 
     desc "Destroy a virtual host"
     task :destroy, :roles => :web do
       nginx.virtual_host.disable
-      run "sudo rm /opt/nginx/sites-available/#{nginx_script_name}"
+      run "sudo rm /usr/local/nginx/sites-available/#{nginx_script_name}"
     end
 
     desc "Disable a virtual host"
     task :disable, :roles => :web do
-      sudo "rm /opt/nginx/sites-enabled/#{nginx_script_name}"
+      sudo "rm /usr/local/nginx/sites-enabled/#{nginx_script_name}"
     end
   end
 end
