@@ -3,14 +3,10 @@ set :repo_name, "ieema"
 set :stage, "production"
 set :deploy_to, "/u/#{application}"
 set :user, application
-set :repository, "http://svn.risingsuntech.net/#{repo_name}/"
+set :repository, "svn+ssh://risingsundeploy@svn.risingsuntech.net/home/asanghi/svn/#{repo_name}/"
 set :deploy_via, :remote_cache
 set :rails_env, 'production'
-set :db_user, "#{application}_db"
 set :group, "deploy"
-set :scm_username, "deploy"
-set :scm_password, proc { Capistrano::CLI.password_prompt("Subversion Password : ") }
-set :db_passwd, proc { Capistrano::CLI.password_prompt("Production database remote Password : ") }
 
 set :domain, "sunday"
 set :domains, ["ieema.risingsunapps.com"]
@@ -40,6 +36,8 @@ end
 
 desc "After updating code we need to populate a new database.yml"
 task :make_database_yaml, :roles => :app do
+  set :db_user, "#{application}_db"
+  set :db_passwd, proc { Capistrano::CLI.password_prompt("Production database remote Password : ") }
   require "yaml"
   #set :production_database_password, proc { Capistrano::CLI.password_prompt("Production database remote Password : ") }
   database_file = YAML::load_file('config/database.yml.tmp')
@@ -64,8 +62,8 @@ task :symlink_files, :roles => :app do
   end
 end
 
-after "deploy:update_code", "make_database_yaml", "symlink_files"
-after "deploy:setup", "add:folders", "nginx:virtual_host:create"
+after "deploy:update_code", "symlink_files"
+after "deploy:setup", "add:folders", "nginx:virtual_host:create", "make_database_yaml"
 #after "deploy:restart"# ,"nginx:virtual_host:enable"#, "nginx:reload"
 
 set :nginx_script_name, "#{application}_host_conf"
