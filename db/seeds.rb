@@ -110,3 +110,4 @@ workbook = Spreadsheet.open("#{RAILS_ROOT}/public/data_export.xls")
 #CommodityPrice.import!(workbook)
 (commodity_count,formula_count,prices_count) = Formula.import!(workbook)
 puts "#{formula_count} formulas imported with #{commodity_count} commodities and #{prices_count} prices"
+
