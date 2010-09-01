@@ -1,0 +1,18 @@
+- title "Commodity: #{@commodity.name} (#{@commodity.code})"
+%script{:src => "/javascripts/swfobject.js", :type => "text/javascript"}
+= raw @graph
+%ul.pricelist
+  - @commodity.commodity_prices.reverse.each do |cp|
+    %li{:class => cycle(:odd,:even)}
+      .dateblock
+        = link_to(cp.price_date.to_s(:short_month_and_year),edit_commodity_price_path(cp))
+      .priceblock
+        = cp.price
+%p
+  = link_to "Edit", edit_commodity_path(@commodity)
+  |
+  = link_to "Destroy", @commodity, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to("New Commodity Price", new_commodity_price_path)
+  |
+  = link_to "View All", commodities_path

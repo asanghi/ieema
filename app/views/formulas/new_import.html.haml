@@ -1,0 +1,6 @@
+= form_tag(import_formulas_path, :multipart => true) do
+  %fieldset
+    %legend Import Data Exported Excel
+    %label{:for => "file_import"} Import File
+    = file_field_tag(:excel_file)
+  .buttons= submit_tag("Upload", :class => "button")

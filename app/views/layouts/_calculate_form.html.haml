@@ -1,0 +1,11 @@
+= form_tag(formulas_path, :method => :get, :id => 'calculator') do
+  - @dates = CommodityPrice.details.map{|c|c.price_date.to_s(:short_month_and_year)}
+  %fieldset
+    %legend Formula Calculation
+    %label{:for => "id"} Formula
+    = select_tag(:id, option_groups_from_collection_for_select(Category.all,'formulas','name','id', 'name',params[:id].try(:to_i)))
+    = select_tag(:billing_date,options_from_collection_for_select(@dates,'to_s','to_s',params[:billing_date]), :class => 'dateselector')
+    = select_tag(:tender_date,options_from_collection_for_select(@dates,'to_s','to_s',params[:tender_date]), :class => 'dateselector')
+  :javascript
+    jQuery('select.dateselector').selectToUISlider({ labels: 7 });
+  .buttons= submit_tag("Calculate", {:class => "button"})

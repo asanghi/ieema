@@ -1,0 +1,55 @@
+!!!
+%html
+  %head
+    %title= h(yield(:title) || "Untitled")
+    = stylesheet_link_tag 'application'
+    = yield(:head)
+    = javascript_include_tag "jquery-1.3.2.min", "navigation"
+    = csrf_meta_tag
+  %body
+    #container
+      #header
+        %span#title IEEMA Price Variation Calculator
+        %ul.topnav
+          %li= link_to("Home",root_path)
+          %li
+            = link_to("Commodities",commodities_path)
+            %ul.subnav
+              = render :partial => 'commodities/commodity_sidebar', :collection => Commodity.all
+              %li= link_to("Commodity Prices",commodity_prices_path)
+          = render Category.all(:include => :formulas)
+          %li
+            = link_to("Admin","#")
+            %ul.subnav
+              %li= link_to("All Formulas", formulas_path)
+              %li= link_to("New Formula", new_formula_path)
+              %li= link_to("All Categories", categories_path)
+              %li= link_to("New Category", new_category_path)
+              %li= link_to("New Commodity", new_commodity_path)
+              %li= link_to("Export All Data to Excel", data_export_formulas_path(:format => :xls))
+              %li= link_to("Import All Data from Excel", new_import_formulas_path)
+      #content.clearfix
+        #side-b
+          - if show_title?
+            %h2= yield(:title)
+          - flash.each do |name, msg|
+            %div{:id => "flash_#{name}"}
+              = msg
+            - flash.delete(name)
+          = render("calculate_form")
+          = form_tag(formulas_path, :method => :get, :id => 'calculator') do
+            %fieldset
+              %legend Formula Calculation
+              %label{:for => "id"} Formula
+              = select_tag(:id, option_groups_from_collection_for_select(Category.all,'formulas','name','id', 'name',params[:id].try(:to_i)))
+              %label{:for => "billing_date"} Billing Month &amp; Year
+              = text_field_tag(:billing_date,params[:billing_date])
+              %label{:for => "tender_date"} Tender Month &amp; Year
+              = text_field_tag(:tender_date,params[:tender_date])
+            .buttons= submit_tag("Calculate", {:class => "button"})
+          = yield
+      #footer
+        #hosting
+          %a.rise_logo{:href => "http://risingsuntech.net", :target => "blank"}
+            %img{:alt => "Powered by Rising Sun", :src => "/images/poweredby.gif"}/
+        #credits Rising Sun Technologies &copy; Copyright 2009

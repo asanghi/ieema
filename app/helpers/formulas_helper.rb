@@ -1,7 +1,7 @@
 module FormulasHelper
 
   def component_description(fc)
-    "#{fc.weight}*#{fc.commodity.code}/#{fc.commodity.code}<sub>0</sub>"
+    "#{fc.weight}*#{fc.commodity.code}/#{fc.commodity.code}<sub>0</sub>".html_safe!
   end
 
   def formula_description(f)
@@ -14,7 +14,7 @@ module FormulasHelper
       fc.tender_date = f.tender_date
       fc.descriptive_weight
     end.join(" + <br/>")
-    "<br/>#{f.buffer} + <br/>#{descriptions}"
+    "<br/>#{f.buffer} + <br/>#{descriptions}".html_safe!
   end
 
   def add_fc_link(name, form)

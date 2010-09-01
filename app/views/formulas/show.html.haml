@@ -1,0 +1,17 @@
+- title "Formulas: #{@formula.category.name} : #{@formula.name}"
+%p
+  %strong Formula:
+  [
+  %code>
+    (
+    = raw "#{@formula.buffer} + #{formula_description(@formula)}"
+    )
+  ]
+- @formula.formula_components.each do |fc|
+  %p
+    = fc.weight
+    \% 
+    = fc.commodity.name
+    (#{pluralize(fc.tender_month_difference,'month')} before tender date and #{pluralize(fc.billing_month_difference,'month')} before billing date)
+%p
+  = link_to "Edit", edit_formula_path(@formula)

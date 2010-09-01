@@ -1,0 +1,11 @@
+= form_for @commodity_price do |f|
+  %fieldset
+    = f.error_messages
+    %legend Commodity Price
+    = f.label :commodity
+    = f.collection_select(:commodity_id, Commodity.all, :id, :name, {:prompt => true})
+    = f.label :price_date, "Price Month & Year"
+    = f.text_field :price_date_formatted
+    = f.label :price
+    = f.text_field :price
+  .buttons= f.submit("Submit",{:class => "button"})

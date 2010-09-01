@@ -1,0 +1,5 @@
+%li
+  = link_to(category.name,category_path(category))
+  %ul.subnav
+    - category.formulas.each do |f|
+      %li= link_to(f.name,f)

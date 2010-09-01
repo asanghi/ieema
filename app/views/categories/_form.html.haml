@@ -1,0 +1,8 @@
+= form_for @category do |f|
+  %fieldset
+    %legend
+      Formula Category
+    = f.error_messages
+    = f.label :name
+    = f.text_field :name
+  .buttons= f.submit("Submit",:class => 'button')

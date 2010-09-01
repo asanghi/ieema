@@ -1,0 +1,16 @@
+- title "Commodities"
+- @all_commodities = CommodityPrice.for_year(@for_year).details
+%table.pretty-table
+  %thead
+    %tr
+      %th= link_to(@prev_year,commodities_path(:year => @prev_year))
+      %th Name
+      %th Code
+      - (1..12).each do |cp|
+        %th= Date.new(@for_year,cp,1).to_s(:short_month_and_year)
+        %th= link_to(@next_year,commodities_path(:year => @next_year))
+  %tbody
+    = render @commodities
+= link_to("Export to Data Excel from Database",data_export_formulas_path(:format => :xls))
+|
+\#{link_to("Download","/ieema.xls")} original excel file used for import

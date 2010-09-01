@@ -1,0 +1,27 @@
+- title "IEEMA Price Variation Calculator"
+- if @result
+  %p
+    Result:
+    %strong
+      = @result
+      \%
+  %p
+    Formula
+    %strong
+      = @formula.name
+      under #{@formula.category.name} (
+      %code>= @formula.description
+      )
+  %p
+    %strong Result Details
+    %code= result_descriptive(@formula)
+- else
+  - Formula.all.group_by{|a|a.category}.each do |c,vals|
+    Category #{c.name}
+    %ul.pricelist.formulalist
+      - vals.each do |f|
+        %li{:class => cycle(:odd,:even)}
+          .dateblock= link_to(f.name,formula_path(f))
+          .priceblock
+            %code= f.description
+  - reset_cycle

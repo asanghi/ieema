@@ -1,0 +1,8 @@
+%tr{:class => cycle(:odd, :even)}
+  %th{:scope => "row"}= commodity_counter + 1
+  %th{:scope => "row"}= link_to(commodity.name,commodity_path(commodity))
+  %td
+    %code= commodity.code
+  - (1..12).each do |cp|
+    %td= commodity.commodity_prices.price_for(Date.new(@for_year,cp,1)).last.try(:price)
+  %td

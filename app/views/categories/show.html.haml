@@ -1,0 +1,8 @@
+- title "Category"
+%p
+  %strong Name:
+  = @category.name
+%p
+  = render @category.formulas
+%p
+  = link_to "Edit", edit_category_path(@category)

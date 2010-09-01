@@ -1,0 +1,21 @@
+- title "Commodity Prices"
+%table.pretty-table
+  %thead
+    %tr
+      %th
+      - @commodities.each do |c|
+        %th{:scope => "col"}= link_to(c.name,commodity_path(c))
+  %tbody
+    - @prices.keys.each do |year|
+      %tr
+        %th{:colspan => @commodities.size+1}= year
+      - @prices[year].keys.sort.reverse.each do |month|
+        %tr{:class => cycle(:odd, :even)}
+          %th{:scope => "row"}= Time::RFC2822_MONTH_NAME[month-1]
+          - @commodities.each do |c|
+            %td= @prices[year][month][c].try(:price)
+%p= link_to "New Commodity Price", new_commodity_price_path
+= link_to("Export to Excel from Database",data_export_formulas_path(:format => :xls))
+|
+= link_to("Download","/ieema.xls") 
+original excel file used for import
