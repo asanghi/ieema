@@ -1,11 +1,11 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
     <%= stylesheet_link_tag 'application' %>
     <%= yield(:head) %>
     <%= javascript_include_tag "jquery-1.3.2.min", "navigation"  %>
+		<%= csrf_meta_tag %>
   </head>
   <body>
     <div id="container">
@@ -44,7 +44,7 @@
             <%= content_tag :div, msg, :id => "flash_#{name}" %>
             <% flash.delete(name) %>
           <%- end -%>
-          <% form_tag(formulas_path, :method => :get, :id => 'calculator') do %>
+          <%= form_tag(formulas_path, :method => :get, :id => 'calculator') do %>
             <fieldset>
               <legend>Formula Calculation</legend>
               <label for="id">Formula</label>

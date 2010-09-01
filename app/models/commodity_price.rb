@@ -5,9 +5,9 @@ class CommodityPrice < ActiveRecord::Base
   validates_numericality_of :price
   validates_uniqueness_of :price_date, :scope => :commodity_id
 
-  named_scope :price_for, lambda{|d|{:conditions => ["month(price_date) = ? and year(price_date) = ?",d.month,d.year]}}
-  named_scope :for_year, lambda{|*y|{:conditions => ["year(price_date) = ?",(y[0]||Date.today.year)]}}
-  named_scope :details, {:order => 'price_date', :select => 'distinct(price_date)'}
+  scope :price_for, lambda{|d|{:conditions => ["date(price_date,'start of month') = ? and date(price_date,'start of year') = ?",d.beginning_of_month,d.beginning_of_year]}}
+  scope :for_year, lambda{|*y|{:conditions => ["strftime('%y',price_date) = ?",(y[0]||Date.today.year)]}}
+  scope :details, {:order => 'price_date', :select => 'distinct(price_date)'}
 
   def price_date_formatted=(val)
     self.price_date = Date.parse(val)

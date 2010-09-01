@@ -41,8 +41,9 @@ class Formula < ActiveRecord::Base
 
   def total_component_sum
     fc = formula_components.reject{|x| x.blank? or (x.weight.blank?) or (x.weight == 0) }
-    if !fc.empty? && (fc.sum(&:weight) + (buffer||0)) != 100.0
-      errors.add(:base,"Total Component Weight + Buffer should be 100.0")
+    total_weight = fc.sum(&:weight)
+    if !fc.empty? && (total_weight + (buffer||0)) != 100.0
+      errors.add(:base,"Total Component Weight + Buffer should be 100.0, #{buffer} + #{total_weight}")
     end
   end
 
@@ -57,7 +58,7 @@ class Formula < ActiveRecord::Base
     commodity_sheet = workbook.worksheet("Commodities")
     commodities = {}
     commodity_sheet.each do |r|
-      commodities[r[1]] = Commodity.create!(:name => r[0], :code => r[1].upcase)
+      commodities[r[1].upcase] = Commodity.create!(:name => r[0], :code => r[1].upcase)
     end
     formula_sheet = workbook.worksheet("Formulas")
     formulas = []

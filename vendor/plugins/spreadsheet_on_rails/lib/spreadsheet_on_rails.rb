@@ -12,16 +12,6 @@ module SpreadsheetOnRails
   end
 
   class Base
-    @@temp_file = nil
-
-    def temp_file_path
-      unless @@temp_file
-        temp = Tempfile.new('spreadsheet-', File.join(RAILS_ROOT, 'tmp') )
-        @@temp_file = temp.path
-        temp.close
-      end
-      @@temp_file
-    end
 
     def initialize
       yield workbook
@@ -32,8 +22,9 @@ module SpreadsheetOnRails
     end
 
     def process
-      workbook.write(temp_file_path)
-      File.open(temp_file_path, 'rb') { |file| file.read }
+      sio = StringIO.new
+      workbook.write(sio)
+      sio.string
     end
   end
 end

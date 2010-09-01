@@ -1,5 +1,5 @@
 <%= javascript_include_tag :defaults  %>
-<% form_for @formula do |f| %>
+<%= form_for @formula do |f| %>
   <fieldset>
     <legend>Formula Details</legend>
     <%= f.error_messages %>
@@ -12,7 +12,7 @@
   </fieldset>
   <% @commodities = Commodity.all %>
   <div id="formula_components">
-    <% f.fields_for :formula_components do |child_form| %>
+    <%= f.fields_for :formula_components do |child_form| %>
       <fieldset>
         <legend>Component</legend>
         <%= child_form.label :commodity %>
