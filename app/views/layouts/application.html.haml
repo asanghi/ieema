@@ -36,7 +36,6 @@
             %div{:id => "flash_#{name}"}
               = msg
             - flash.delete(name)
-          = render("calculate_form")
           = form_tag(formulas_path, :method => :get, :id => 'calculator') do
             %fieldset
               %legend Formula Calculation
