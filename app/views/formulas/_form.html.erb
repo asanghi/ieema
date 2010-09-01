@@ -24,8 +24,8 @@
         <%= child_form.label :tender_month_difference, "Months before Tender Date" %>
         <%= child_form.text_field :tender_month_difference %>
         <% unless child_form.object.new_record? %>
-          <%= child_form.check_box '_delete' %>
-          <%= child_form.label '_delete', 'Remove' %>
+          <%= child_form.check_box '_destroy' %>
+          <%= child_form.label '_destroy', 'Remove' %>
         <% end %>
       </fieldset>
     <% end %>
