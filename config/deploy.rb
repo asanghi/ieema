@@ -3,7 +3,7 @@ set :repo_name, "ieema"
 set :stage, "production"
 set :deploy_to, "/u/#{application}"
 set :user, application
-set :repository, "svn+ssh://risingsundeploy@svn.risingsuntech.net/home/asanghi/svn/#{repo_name}/"
+set :repository, "ssh://risingsundeploy@svn.risingsuntech.net/home/asanghi/projects/#{repo_name}.git"
 set :deploy_via, :remote_cache
 set :rails_env, 'production'
 set :group, "deploy"
