@@ -4,7 +4,6 @@ set :stage, "production"
 set :deploy_to, "/u/#{application}"
 set :user, application
 set :repository, "svn+ssh://risingsundeploy@svn.risingsuntech.net/home/asanghi/svn/#{repo_name}/"
-set :local_repository, "http://svn.risingsuntech.net/#{repo_name}/"
 set :deploy_via, :remote_cache
 set :rails_env, 'production'
 set :group, "deploy"
